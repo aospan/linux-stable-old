@@ -90,7 +90,8 @@ dtb-$(CONFIG_ARCH_BCM_5301X) += \
 	bcm94708.dtb \
 	bcm94709.dtb \
 	bcm953012er.dtb \
-	bcm953012k.dtb
+	bcm953012k.dtb \
+	bcm4708-edgecore-ecw7220-l.dtb
 dtb-$(CONFIG_ARCH_BCM_63XX) += \
 	bcm963138dvt.dtb
 dtb-$(CONFIG_ARCH_BCM_CYGNUS) += \
