@@ -1,0 +1,28 @@
+#setenv bootargs "console=ttyS0,115200 init=/sbin/init"
+
+tftpboot 0x80000000 192.168.1.121:bcm4708-edgecore-ecw7220-l.dtb
+tftpboot 0x82007FC0 192.168.1.121:uImage-next
+bootm 0x82007FC0
+
+
+#tftpboot 0x80000000 192.168.1.121:bcm953012k.dtb
+
+
+mkdir /mnt/nfs
+mount -o nolock 192.168.1.121:/mnt/sdb /mnt/nfs
+cd /mnt/nfs/hdd2/src/ocp/
+
+
+#write ubi to nand from uboot
+
+#tftpboot 0x82000000 192.168.1.121:root-ok.ubi
+tftpboot 0x82000000 192.168.1.121:ubi.trx
+(size! Bytes transferred = 9568256 (920000 hex) <---- use this size below)
+nand erase 0x01080000 0x06F80000
+nand write 0x82400000 0x01080000 0x920000
+#nand write 0x82000000 0x01080000 0x991000
+
+
+export cnt=0; while [ 1 ]; do echo $cnt; let cnt=$cnt+1; insmod pcie-iproc-bcma.ko; rmmod pcie-iproc-bcma.ko; done
+
+cat /dev/kmsg  | egrep '(14e4|link)'

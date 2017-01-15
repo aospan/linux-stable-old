@@ -1062,6 +1062,9 @@ void __init setup_arch(char **cmdline_p)
 {
 	const struct machine_desc *mdesc;
 
+	//hack
+	__atags_pointer = 0x80000000;
+
 	setup_processor();
 	mdesc = setup_machine_fdt(__atags_pointer);
 	if (!mdesc)
