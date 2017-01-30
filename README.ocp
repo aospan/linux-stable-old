@@ -4,7 +4,16 @@ make -j 4 LOADADDR=0x82008000 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- ecw7220l
 make -j 4 LOADADDR=0x82008000 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- uImage
 ```
 
-#Boot from tftp
+#Prepare TFTP server
+copy binary files to TFTP server directory. For example, on MacBook this folder is: /private/tftpboot.
+We need to copy files to this folder and start TFTP server with following commands:
+```
+sudo cp uImage bcm4708-edgecore-ecw7220-l.dtb /private/tftpboot/
+sudo launchctl load -F /System/Library/LaunchDaemons/tftp.plist
+sudo launchctl start com.apple.tftpd
+```
+
+#Boot Access Point from network (TFTP)
 ```
 tftpboot 0x80000000 192.168.1.121:bcm4708-edgecore-ecw7220-l.dtb
 tftpboot 0x82007FC0 192.168.1.121:uImage
